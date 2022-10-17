@@ -1,48 +1,38 @@
 import React from "react";
+import DisplayInfo from "./DisplayInfo";
+import UserInfo from "./UserInfo";
 
 class MyComponent extends React.Component {
 
     state = {
-        name: 'Dien',
-        address: 'Moscow',
-        age: 22
-    };
-
-    handleClick = (event) => {
-
-        console.log("Click me");
-
-        this.setState({
-            name: 'Ladien',
-            age: Math.floor((Math.random() * 100) + 1)
-        })
-        console.log("My name is ", this.state.name);
-    }
-
-    handleOnMouseOver(event) {
-        console.log(event.target);
-    }
-
-    handleOnChangeInput = (event) => {
-        this.setState({
-            name: event.target.value
-        })
-    }
-
-    handleOnSubmit = (event) => {
-        event.preventDefault();
-        console.log(this.state);
+        listUsers: [
+            {
+                id: 1,
+                name: "La Dien",
+                age: "30"
+            },
+            {
+                id: 2,
+                name: "La Vu Thanh Dien",
+                age: "22"
+            },
+            {
+                id: 3,
+                name: "Dien",
+                age: "13"
+            },
+        ]
     }
 
     //JSX
     render() {
         return (
-            <div> my first component {this.state.name} and {this.state.age}
+            <div>
+                <UserInfo />
+                <br />
+                <DisplayInfo listUsers={this.state.listUsers} />
 
-                <form onSubmit={(event) => { this.handleOnSubmit(event) }}>
-                    <input type="text" onChange={(event) => { this.handleOnChangeInput(event) }} />
-                    <button> Submit</button>
-                </form>
+
             </div>
         );
     }
