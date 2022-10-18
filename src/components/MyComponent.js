@@ -38,17 +38,21 @@ class MyComponent extends React.Component {
         })
     }
 
+
+
     //JSX
     render() {
         return (
             <>
-                <div>
+                <div className="my-component">
                     <AddUserInfo
                         handleAddNewUser={this.handleAddNewUser}
+                    // state={this.state.listUsers[1]}
                     />
                     <br />
                     <DisplayInfo listUsers={this.state.listUsers}
                         handleDeleteUser={this.handleDeleteUser}
+
                     />
 
 
