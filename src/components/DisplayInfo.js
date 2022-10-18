@@ -5,9 +5,31 @@ import logo from './../logo.svg'
 import AddUserInfo from "./AddUserInfo";
 class DisplayInfo extends React.Component {
 
-    state = {
-        isShowList: true
+    constructor(props) {
+        console.log("did mount 0");
+        super(props);
+        this.state = {
+            isShowList: true
+        }
+
     }
+
+    componentDidMount() {
+        console.log("did mount");
+        setTimeout(() => {
+            document.title = 'LaDien'
+        }, 3000)
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log('did update', this.props, prevProps)
+        if (this.props.listUsers !== prevProps.listUsers) {
+            if (this.props.listUsers.length === 5) {
+                alert('You got 5 users')
+            }
+        }
+    }
+
 
     handleShowHide(event) {
         this.setState({
@@ -24,6 +46,7 @@ class DisplayInfo extends React.Component {
 
 
     render() {
+        console.log("render ");
         const { listUsers } = this.props;
         console.log(listUsers)
         return (
