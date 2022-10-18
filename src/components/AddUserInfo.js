@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // class AddUserInfo extends React.Component {
 
@@ -82,6 +82,8 @@ const AddUserInfo = (props) => {
             age: age
         });
     }
+
+
 
     return (
         <div key={id} className={+age > 18 ? "green" : "red"}>
