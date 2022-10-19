@@ -20,9 +20,7 @@ const Header = () => {
                     <Nav>
                         <NavDropdown title="Setting" id="basic-nav-dropdown">
                             <NavDropdown.Item >Log in</NavDropdown.Item>
-                            <NavDropdown.Item >
-                                Log out
-                            </NavDropdown.Item>
+                            <NavDropdown.Item >Log out</NavDropdown.Item>
                             <NavDropdown.Item >Profile</NavDropdown.Item>
 
                         </NavDropdown>
