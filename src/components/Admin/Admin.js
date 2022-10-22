@@ -1,6 +1,19 @@
+import SideBar from "./SideBar";
+import './Admin.scss'
+import { useState } from "react";
+import { FaHeart, FaBars } from 'react-icons/fa';
 const Admin = (props) => {
+    const [collapsed, setCollapsed] = useState(false);
     return (
-        <div> Admin component</div>
+        <div className="admin-container">
+            <div className="admin-sidebar">
+                <SideBar collapsed={collapsed} />
+            </div>
+            <div className="admin-content">
+                <FaBars onClick={() => setCollapsed(!collapsed)} />
+                contain
+            </div>
+        </div>
     )
 }
 
