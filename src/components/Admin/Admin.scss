@@ -1,7 +1,7 @@
 .admin-container{
     display: flex;
     height: 100vh !important;
-
+   
     .admin-sidebar{
         // .pro-sidebar{
         //     height: 100vh !important;
@@ -11,5 +11,15 @@
         //     color: black;
         //     height: '100%';
         // }
+    }
+
+    .admin-content{
+        width: 100%;
+        .admin-header{
+
+        }
+        .admin-main{
+            border: 1px solid red;
+        }
     }
 }
