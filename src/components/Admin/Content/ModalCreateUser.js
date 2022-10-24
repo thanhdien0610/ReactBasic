@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { FcPlus } from 'react-icons/fc'
+import { BiImageAdd } from 'react-icons/bi'
 const ModalCreateUser = () => {
     const [show, setShow] = useState(false);
 
@@ -26,13 +27,15 @@ const ModalCreateUser = () => {
 
     return (
         <>
-            <Button variant="primary" onClick={handleShow}>
+            <Button variant="primary" onClick={handleShow} >
                 Create new user
             </Button>
 
             <Modal backdrop="static"
                 show={show} onHide={handleClose} size='xl'
-                className='modal-add-user'>
+                className='modal-add-user'
+                onExiting={() => setPreviewImage('')}
+            >
                 <Modal.Header closeButton>
                     <Modal.Title> Add new user</Modal.Title>
                 </Modal.Header>
@@ -90,7 +93,16 @@ const ModalCreateUser = () => {
                             {previewImage ?
                                 <img src={previewImage} />
                                 :
-                                <span> preview</span>
+                                <div>
+                                    <label className='form-label label-upload' htmlFor='labelUpload' >
+                                        <BiImageAdd /></label>
+                                    <input
+                                        type='file'
+                                        hidden id='labelUpload'
+                                        onChange={(event) => handleUploadImage(event)}
+                                    />
+                                </div>
+
                             }
 
 
