@@ -1,5 +1,5 @@
 import ModalCreateUser from "./ModalCreateUser";
-
+import './ManageUsers.scss'
 
 
 
