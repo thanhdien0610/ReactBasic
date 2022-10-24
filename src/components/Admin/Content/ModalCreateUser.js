@@ -3,11 +3,25 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { FcPlus } from 'react-icons/fc'
 import { BiImageAdd } from 'react-icons/bi'
-const ModalCreateUser = () => {
-    const [show, setShow] = useState(false);
+import axios from 'axios';
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+const ModalCreateUser = (props) => {
+    const { show, setShow } = props;
+    //const [show, setShow] = useState(false);
+
+    const handleClose = () => {
+        setShow(false);
+        setEmail("")
+        setImage("")
+        setPassword("");
+        setUsername("");
+        setPreviewImage("");
+        setRole("USER");
+    }
+    const handleShow = () => {
+
+
+    }
 
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
@@ -15,6 +29,26 @@ const ModalCreateUser = () => {
     const [email, setEmail] = useState('');
     const [role, setRole] = useState('USER');
     const [previewImage, setPreviewImage] = useState("");
+
+    const handleSubmitCreateUser = async () => {
+        // let data = {
+        //     email: email,
+        //     password: password,
+        //     username: username,
+        //     role: role,
+        //     userImage: image
+        // }
+        // console.log(data)
+        const data = new FormData();
+        data.append('email', email);
+        data.append('password', password);
+        data.append('username', username);
+        data.append('role', role);
+        data.append('userImage', image);
+        let res = await axios.post('http://localhost:8081/api/v1/participant', data)
+        console.log(res);
+    }
+
     const handleUploadImage = (event) => {
         if (event.target && event.target.files && event.target.files[0]) {
             setPreviewImage(URL.createObjectURL(event.target.files[0]));
@@ -27,14 +61,14 @@ const ModalCreateUser = () => {
 
     return (
         <>
-            <Button variant="primary" onClick={handleShow} >
+            {/* <Button variant="primary" onClick={handleShow} >
                 Create new user
-            </Button>
+            </Button> */}
 
             <Modal backdrop="static"
                 show={show} onHide={handleClose} size='xl'
                 className='modal-add-user'
-                onExiting={() => setPreviewImage('')}
+            // onExiting={handleClose}
             >
                 <Modal.Header closeButton>
                     <Modal.Title> Add new user</Modal.Title>
@@ -94,11 +128,11 @@ const ModalCreateUser = () => {
                                 <img src={previewImage} />
                                 :
                                 <div>
-                                    <label className='form-label label-upload' htmlFor='labelUpload' >
+                                    <label className='form-label label-upload-1' htmlFor='labelUpload1' >
                                         <BiImageAdd /></label>
                                     <input
                                         type='file'
-                                        hidden id='labelUpload'
+                                        hidden id='labelUpload1'
                                         onChange={(event) => handleUploadImage(event)}
                                     />
                                 </div>
@@ -115,7 +149,7 @@ const ModalCreateUser = () => {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleClose}>
+                    <Button variant="primary" onClick={handleSubmitCreateUser}>
                         Create
                     </Button>
                 </Modal.Footer>
