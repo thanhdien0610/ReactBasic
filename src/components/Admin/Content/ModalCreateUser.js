@@ -3,7 +3,9 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { FcPlus } from 'react-icons/fc'
 import { BiImageAdd } from 'react-icons/bi'
-import axios from 'axios';
+
+import { toast } from 'react-toastify';
+import { postCreateNewUser } from '../../../services/apiServices';
 
 const ModalCreateUser = (props) => {
     const { show, setShow } = props;
@@ -30,24 +32,43 @@ const ModalCreateUser = (props) => {
     const [role, setRole] = useState('USER');
     const [previewImage, setPreviewImage] = useState("");
 
+
+    const validateEmail = (email) => {
+        return String(email)
+            .toLowerCase()
+            .match(
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            );
+    };
+
     const handleSubmitCreateUser = async () => {
-        // let data = {
-        //     email: email,
-        //     password: password,
-        //     username: username,
-        //     role: role,
-        //     userImage: image
-        // }
-        // console.log(data)
-        const data = new FormData();
-        data.append('email', email);
-        data.append('password', password);
-        data.append('username', username);
-        data.append('role', role);
-        data.append('userImage', image);
-        let res = await axios.post('http://localhost:8081/api/v1/participant', data)
-        console.log(res);
+
+        const isValidEmail = validateEmail(email);
+
+        if (!isValidEmail) {
+            toast.error('Invalid email')
+            return;
+        };
+
+        if (!password) {
+            toast.error('Invalid password');
+            return;
+        };
+
+
+        let data = await postCreateNewUser(email, password, username, role, image);
+
+        console.log(data);
+        if (data && data.EC === 0) {
+            toast.success(data.EM);
+            handleClose();
+        }
+        if (data && data.EC !== 0) {
+            toast.error(data.EM)
+        }
     }
+
+
 
     const handleUploadImage = (event) => {
         if (event.target && event.target.files && event.target.files[0]) {
