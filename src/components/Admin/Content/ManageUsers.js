@@ -1,13 +1,26 @@
 import ModalCreateUser from "./ModalCreateUser";
 import './ManageUsers.scss'
-import { useState } from "react";
-import TableUser from "./TableUser";
 
+import TableUser from "./TableUser";
+import { useEffect, useState } from "react"
+import { getAllUser } from "../../../services/apiServices"
 
 
 const ManageUsers = (props) => {
 
     const [showModelCreateUser, setShowModelCreateUser] = useState(false);
+    const [listUsers, setListUsers] = useState([])
+
+    const fetchListUser = async () => {
+        let res = await getAllUser();
+        if (res.EC === 0) {
+            setListUsers(res.DT);
+        }
+
+    }
+    useEffect(() => {
+        fetchListUser();
+    }, [])
 
     return (
         <div className="manage-users-container">
@@ -20,11 +33,12 @@ const ManageUsers = (props) => {
                     <ModalCreateUser
                         show={showModelCreateUser}
                         setShow={setShowModelCreateUser}
+                        fetchListUser={fetchListUser}
                     />
                 </div>
 
                 <div className="table-users-container">
-                    <TableUser />
+                    <TableUser listUsers={listUsers} />
 
                 </div>
             </div>
