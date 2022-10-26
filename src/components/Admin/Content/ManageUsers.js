@@ -4,20 +4,28 @@ import './ManageUsers.scss'
 import TableUser from "./TableUser";
 import { useEffect, useState } from "react"
 import { getAllUser } from "../../../services/apiServices"
+import ModalUpdateUser from "./ModalUpdateUser";
 
 
 const ManageUsers = (props) => {
 
     const [showModelCreateUser, setShowModelCreateUser] = useState(false);
-    const [listUsers, setListUsers] = useState([])
+    const [showModelUpdateUser, setShowModelUpdateUser] = useState(false);
 
+    const [listUsers, setListUsers] = useState([])
+    const [dataUpdate, setDataUpdate] = useState({});
     const fetchListUser = async () => {
         let res = await getAllUser();
         if (res.EC === 0) {
             setListUsers(res.DT);
         }
-
     }
+
+    const handleClickBtnUpdate = (user) => {
+        setDataUpdate(user);
+        setShowModelUpdateUser(true);
+    }
+
     useEffect(() => {
         fetchListUser();
     }, [])
@@ -38,9 +46,19 @@ const ManageUsers = (props) => {
                 </div>
 
                 <div className="table-users-container">
-                    <TableUser listUsers={listUsers} />
+                    <TableUser
+                        listUsers={listUsers}
+                        handleClickBtnUpdate={handleClickBtnUpdate}
+
+                    />
 
                 </div>
+                <ModalUpdateUser
+                    show={showModelUpdateUser}
+                    setShow={setShowModelUpdateUser}
+                    fetchListUser={fetchListUser}
+                    dataUpdate={dataUpdate}
+                />
             </div>
         </div>
     )
