@@ -5,7 +5,7 @@ import { FcPlus } from 'react-icons/fc'
 import { BiImageAdd } from 'react-icons/bi'
 
 import { toast } from 'react-toastify';
-import { postCreateNewUser } from '../../../services/apiServices';
+import { putUpdateUser } from '../../../services/apiServices';
 import _ from 'lodash'
 const ModalUpdateUser = (props) => {
     const { show, setShow, dataUpdate } = props;
@@ -14,7 +14,12 @@ const ModalUpdateUser = (props) => {
 
     const handleClose = () => {
         setShow(false);
-
+        // setEmail("")
+        // setImage("")
+        // setPassword("");
+        // setUsername("");
+        // setPreviewImage("");
+        // setRole("USER");
     }
     const handleShow = () => {
 
@@ -56,13 +61,10 @@ const ModalUpdateUser = (props) => {
             return;
         };
 
-        if (!password) {
-            toast.error('Invalid password');
-            return;
-        };
 
 
-        let data = await postCreateNewUser(email, password, username, role, image);
+
+        let data = await putUpdateUser(dataUpdate.id, username, role, image);
 
         console.log(data);
         if (data && data.EC === 0) {
