@@ -66,7 +66,7 @@ const ModalUpdateUser = (props) => {
 
         let data = await putUpdateUser(dataUpdate.id, username, role, image);
 
-        console.log(data);
+        //console.log(data);
         if (data && data.EC === 0) {
             toast.success(data.EM);
             handleClose();
@@ -97,7 +97,7 @@ const ModalUpdateUser = (props) => {
 
             <Modal backdrop="static"
                 show={show} onHide={handleClose} size='xl'
-                className='modal-add-user'
+                className='modal-update-user'
             // onExiting={handleClose}
             >
                 <Modal.Header closeButton>
@@ -182,7 +182,7 @@ const ModalUpdateUser = (props) => {
                         Close
                     </Button>
                     <Button variant="primary" onClick={handleSubmitCreateUser}>
-                        Create
+                        Update
                     </Button>
                 </Modal.Footer>
             </Modal>
