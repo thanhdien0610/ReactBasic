@@ -21,8 +21,9 @@ const ManageUsers = (props) => {
     const [dataUpdate, setDataUpdate] = useState({});
     const [dataView, setDataView] = useState({});
     const [dataDelete, setDataDelete] = useState({});
-    const limitUser = 5;
+    const limitUser = 2;
     const [pageCount, setPageCount] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
     const fetchListUser = async () => {
         let res = await getAllUser();
         if (res.EC === 0) {
@@ -70,6 +71,9 @@ const ManageUsers = (props) => {
                         show={showModelCreateUser}
                         setShow={setShowModelCreateUser}
                         fetchListUser={fetchListUser}
+                        fetchListUserWithPaginate={fetchListUserWithPaginate}
+                        currentPage={currentPage}
+                        setCurrentPage={setCurrentPage}
                     />
                 </div>
 
@@ -87,6 +91,8 @@ const ManageUsers = (props) => {
                         handleClickBtnDelete={handleClickBtnDelete}
                         fetchListUserWithPaginate={fetchListUserWithPaginate}
                         pageCount={pageCount}
+                        currentPage={currentPage}
+                        setCurrentPage={setCurrentPage}
                     />
 
                 </div>
@@ -95,6 +101,9 @@ const ManageUsers = (props) => {
                     setShow={setShowModelUpdateUser}
                     fetchListUser={fetchListUser}
                     dataUpdate={dataUpdate}
+                    fetchListUserWithPaginate={fetchListUserWithPaginate}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
                 />
                 <ModalViewUser
                     show={showModelViewUser}
@@ -106,7 +115,9 @@ const ManageUsers = (props) => {
                     setShow={setShowModelDeleteUser}
                     fetchListUser={fetchListUser}
                     dataDelete={dataDelete}
-
+                    fetchListUserWithPaginate={fetchListUserWithPaginate}
+                    currentPage={currentPage}
+                    setCurrentPage={setCurrentPage}
                 />
             </div>
         </div>
