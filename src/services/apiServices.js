@@ -44,7 +44,7 @@ const postLogin = async (email, password, dispatch, navigate) => {
             toast.success(res.EM);
             dispatch(getLoginSuccess(res.DT));
             dispatch(isNotLoading());
-            // navigate('/')
+            navigate('/')
         }
         if (res && +res.EC !== 0) {
             toast.error(res.EM);

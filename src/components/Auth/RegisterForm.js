@@ -1,8 +1,6 @@
 import './Register.scss';
-import { Button, Form, InputGroup } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { FaUser, FaLock, FaKey } from 'react-icons/fa';
-import { MdEmail } from 'react-icons/md';
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useEffect, useRef, useState } from 'react';
 import { registerUser } from '../../services/apiServices';
