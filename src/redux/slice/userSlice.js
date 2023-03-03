@@ -34,6 +34,12 @@ const userSlice = createSlice({
         },
         getUser: (state, action) => {
             state.account = action.payload;
+        },
+        isLoading: (state) => {
+            state.process.isFetching = true;
+        },
+        isNotLoading: (state) => {
+            state.process.isFetching = false;
         }
     }
 })
@@ -41,7 +47,9 @@ const userSlice = createSlice({
 export const {
     getLoginStart,
     getLoginSuccess,
-    getLoginFailed
+    getLoginFailed,
+    isLoading,
+    isNotLoading
 } = userSlice.actions;
 
 export default userSlice.reducer;

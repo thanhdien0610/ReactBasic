@@ -2,14 +2,18 @@ import { useState } from 'react';
 import '../Auth/Login.scss'
 import { useNavigate } from 'react-router-dom';
 import { postLogin } from '../../services/apiServices';
-
-import { useDispatch } from 'react-redux';
+import { FaSpinner } from 'react-icons/fa'
+import { useDispatch, useSelector } from 'react-redux';
 const Login = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    //const [isLoading, setIsLoading] = useState(false);
+    const isLoading = useSelector(state => state.user?.process?.isFetching);
+    console.log(isLoading);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const handleLogin = () => {
+
         postLogin(email, password, dispatch, navigate);
     }
     return (
@@ -48,7 +52,10 @@ const Login = (props) => {
                     <button
                         className='btn-submit'
                         onClick={() => handleLogin()}
-                    > Login</button>
+                        disabled={isLoading}
+                    >
+                        {isLoading === true && <FaSpinner className='loaderIcon' />}
+                        <span>Login</span> </button>
                 </div>
                 <div className='text-center'>
                     <span className='back' onClick={() => { navigate('/') }}>&#60;&#60; Go to Homepage</span>
