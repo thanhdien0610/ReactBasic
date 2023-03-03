@@ -21,7 +21,7 @@ const ManageUsers = (props) => {
     const [dataUpdate, setDataUpdate] = useState({});
     const [dataView, setDataView] = useState({});
     const [dataDelete, setDataDelete] = useState({});
-    const limitUser = 2;
+    const limitUser = 8;
     const [pageCount, setPageCount] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const fetchListUser = async () => {
