@@ -3,6 +3,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { NavLink, useNavigate } from "react-router-dom";
+import { useSelector } from 'react-redux';
 const Header = () => {
     const navigate = useNavigate();
 
@@ -12,6 +13,11 @@ const Header = () => {
     const handleRegister = () => {
         navigate('/register');
     }
+
+    const user = useSelector((state) => state.user?.account);
+    const isAuthenticated = useSelector(state => state.user?.isAuthenticated);
+    console.log(user, "|||", isAuthenticated);
+
     return (
         <Navbar bg="light" expand="lg">
             <Container>
@@ -26,14 +32,23 @@ const Header = () => {
 
                     </Nav>
                     <Nav>
-                        <button className='btn-login' onClick={() => handleLogin()}> Login </button>
-                        <button className='btn-signup' onClick={() => handleRegister()}>Sign up</button>
-                        {/* <NavDropdown title="Setting" id="basic-nav-dropdown">
-                            <NavDropdown.Item >Log in</NavDropdown.Item>
-                            <NavDropdown.Item >Log out</NavDropdown.Item>
-                            <NavDropdown.Item >Profile</NavDropdown.Item>
+                        {!isAuthenticated ?
+                            <>
+                                <button className='btn-login' onClick={() => handleLogin()}> Login </button>
+                                <button className='btn-signup' onClick={() => handleRegister()}>Sign up</button>
+                            </>
+                            :
+                            <>
+                                <NavDropdown title="Setting" id="basic-nav-dropdown">
+                                    <NavDropdown.Item >Log in</NavDropdown.Item>
+                                    <NavDropdown.Item >Log out</NavDropdown.Item>
+                                    <NavDropdown.Item >Profile</NavDropdown.Item>
 
-                        </NavDropdown> */}
+                                </NavDropdown>
+                            </>
+                        }
+
+
                     </Nav>
                 </Navbar.Collapse>
             </Container>

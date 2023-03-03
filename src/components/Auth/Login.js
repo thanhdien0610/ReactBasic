@@ -3,23 +3,14 @@ import '../Auth/Login.scss'
 import { useNavigate } from 'react-router-dom';
 import { postLogin } from '../../services/apiServices';
 
-import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
 const Login = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-    const handleLogin = async () => {
-        //validate
-        //submit apis
-        let res = await postLogin(email, password);
-        if (res && res.EC === 0) {
-            toast.success(res.EM);
-            navigate('/')
-        }
-        if (res && +res.EC !== 0) {
-            toast.error(res.EM)
-        }
-
+    const dispatch = useDispatch();
+    const handleLogin = () => {
+        postLogin(email, password, dispatch, navigate);
     }
     return (
         <div className="login-container">

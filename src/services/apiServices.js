@@ -1,5 +1,6 @@
+import { getLoginFailed, getLoginStart, getLoginSuccess } from "../redux/slice/userSlice";
 import axios from "../utils/axiosCustomize";
-
+import { toast } from 'react-toastify';
 const postCreateNewUser = (email, password, username, role, image) => {
     const data = new FormData();
     data.append('email', email);
@@ -32,8 +33,26 @@ const getUserWithPaginate = (page, limit) => {
     return axios.get(`api/v1/participant?page=${page}&limit=${limit}`);
 }
 
-const postLogin = (email, password) => {
-    return axios.post(`api/v1/login`, { email, password });
+const postLogin = async (email, password, dispatch, navigate) => {
+    dispatch(getLoginStart())
+    try {
+        const res = await axios.post(`api/v1/login`, { email, password });
+        // console.log(res);
+
+        if (res && res.EC === 0) {
+            toast.success(res.EM);
+            dispatch(getLoginSuccess(res.DT));
+            navigate('/')
+        }
+        if (res && +res.EC !== 0) {
+            toast.error(res.EM)
+            dispatch(getLoginFailed());
+        }
+
+    } catch (error) {
+        dispatch(getLoginFailed());
+    }
+
 }
 
 const registerUser = (username, email, password) => {
