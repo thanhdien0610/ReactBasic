@@ -8,14 +8,35 @@
     }
     .admin-content{
         width: 100%;
-        .admin-header{
-            height: 40px;
-            border: 1px solid green;
+        .admin-header{ 
+            height: 60px;
+            border-bottom: 1px solid #ccc;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px 0 10px;
+
+            .right-side{
+                display: flex;
+                gap: 15px;
+                cursor: pointer;
+                font-size: 20px;
+                color: #666666;
+            }
+            .left-side{
+                font-size: 20px;
+                color: #666666;
+            }
+
         }
         .admin-main{
             // height: 40px;
-            .user-pagination{}
-          
+            .user-pagination{
+                display: flex;
+                justify-content: center;
+            }
+          height: calc(100vh - 50px);
+          margin-bottom: 10px;
         }
     }
 }

@@ -3,10 +3,14 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { NavLink, useNavigate } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../services/apiServices';
+import { toast } from 'react-toastify';
+import { doLogOut } from '../../redux/slice/userSlice';
+import Language from './Language';
 const Header = () => {
     const navigate = useNavigate();
-
+    const dispatch = useDispatch();
     const handleLogin = () => {
         navigate('/login');
     }
@@ -16,8 +20,16 @@ const Header = () => {
 
     const user = useSelector((state) => state.user?.account);
     const isAuthenticated = useSelector(state => state.user?.isAuthenticated);
-    console.log(user, "|||", isAuthenticated);
-
+    //console.log(user, "|||", isAuthenticated);
+    const handleLogOut = async () => {
+        let res = await logout(user.email, user.refresh_token);
+        if (res && +res.EC === 0) {
+            dispatch(doLogOut());
+            navigate('/login')
+        } else {
+            toast.error(res.EM);
+        }
+    }
     return (
         <Navbar bg="light" expand="lg">
             <Container>
@@ -38,17 +50,12 @@ const Header = () => {
                                 <button className='btn-signup' onClick={() => handleRegister()}>Sign up</button>
                             </>
                             :
-                            <>
-                                <NavDropdown title="Setting" id="basic-nav-dropdown">
-                                    <NavDropdown.Item >Log in</NavDropdown.Item>
-                                    <NavDropdown.Item >Log out</NavDropdown.Item>
-                                    <NavDropdown.Item >Profile</NavDropdown.Item>
-
-                                </NavDropdown>
-                            </>
+                            <NavDropdown title="Setting" id="basic-nav-dropdown">
+                                <NavDropdown.Item >Profile</NavDropdown.Item>
+                                <NavDropdown.Item onClick={() => handleLogOut()} >Log out</NavDropdown.Item>
+                            </NavDropdown>
                         }
-
-
+                        <Language />
                     </Nav>
                 </Navbar.Collapse>
             </Container>

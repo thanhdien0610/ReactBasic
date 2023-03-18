@@ -2,9 +2,12 @@
 
     .header{
         height: 45px;
-        text-align: right;
-       
-        padding:5px 100px 0 100px;
+        //text-align: center;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding:5px 200px 0 100px;
+        gap: 10px;
         button{
             padding: 3 15px;
             margin-left: 15px;           

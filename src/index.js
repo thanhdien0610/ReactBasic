@@ -7,19 +7,20 @@ import { persistor, store } from "./redux/store"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter } from "react-router-dom";
 import Layout from './Layout';
-// import '../styles/globals.css'
-// import '../styles/nprogress.css'
+import "react-awesome-lightbox/build/style.css";
 import 'nprogress/nprogress.css';
+import 'react-perfect-scrollbar/dist/css/styles.css';
 import { PersistGate } from 'redux-persist/integration/react'
+import i18n from './utils/i18n';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
     {/* <React.StrictMode> */}
-    <PersistGate loading={null} persistor={persistor}>
-      <BrowserRouter>
-        <Layout> </Layout>
-      </BrowserRouter>
-    </PersistGate>
+    {/* <PersistGate loading={null} persistor={persistor}> */}
+    <BrowserRouter>
+      <Layout> </Layout>
+    </BrowserRouter>
+    {/* </PersistGate> */}
 
 
     {/* </React.StrictMode> */}

@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import Language from "../Header/Language";
 import RegisterForm from "./RegisterForm";
 
 const Register = () => {
@@ -29,11 +30,12 @@ const Register = () => {
                     <div className='header-right'>
 
                         <p >Already have an account?</p>
-                        <div>
+                        <div className="header">
                             <button
                                 className='btn-submit'
                                 onClick={() => { navigate('/login') }}
                             > Login</button>
+                            <Language />
                         </div>
 
 

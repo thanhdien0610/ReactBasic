@@ -1,12 +1,20 @@
 body {
   padding: 0;
   margin: 0;
+  overflow: hidden;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.languages{
+  .dropdown-toggle::after{
+    display: none;
+  }
+}
+
 
 @media (min-width: 1300px){
   .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
@@ -93,6 +101,9 @@ body {
       }
     }
      
+  }
+  .app-content{
+    height: calc(100vh - 60px);
   }
 }
 video{
